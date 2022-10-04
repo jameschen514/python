@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pybugs - Log In
+{% endblock title %}
+
+<div class="jcyc asnyc-data"></div>
+
+{% block content %}
+  <p>Welcome</p>
+  {% if user.is_authenticated %}
+  <p>{{ user }}</p>
+  {% else %}
+  <p>login</p>
+  {% endif %}
+
+  <a href="{% url 'tickets:loginsss' %}">Log In</a>
+  <a href="{% url 'tickets:logoutsss' %}">Logout</a>
+  <a href="{% url 'tickets:newsss' %}">New Ticket</a>
+  <a href="{% url 'tickets:listsss' %}">List Tickets</a>
+
+  <section class="jcyc ticket-form">
+    <form action="{% url 'tickets:loginsss' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" value="" />
+      <input type="password" name="password" value="">
+      <input type="submit" name="Login" value="Login" />
+      <input type="hidden" name="next" value="{{ next | escape }}"
+    </form>
+  </section>
+  <section>
+    <a href="{% url "tickets:loginsss" %}">Login</a><a href="{% url 'tickets:logoutsss' %}">Logout</a>
+  </section>
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock %}

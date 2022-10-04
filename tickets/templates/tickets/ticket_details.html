@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+
+{% block title %}
+Pybugs - Bug Detail
+{% endblock title %}
+
+<div class="jcyc asnyc-data"></div>
+{% block content %}
+{% endblock content %}
+
+{% block edit_data %}
+  <form method="post" action="{% url "tickets:detailsss" %}">
+    {% csrf_token %}
+    {% render_form serializer %}
+    <input type="submit" value="Save" />
+  </form>
+{% endblock edit_data %}
+
+{% block footer %}
+<script type="text/javascript">
+
+</script>
+{% endblock footer %}

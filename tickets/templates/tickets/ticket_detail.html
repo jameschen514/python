@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+{% block title %}
+Pybugs - Bug {{ ticket.id }}
+{% endblock title %}
+
+{% block content %}
+
+
+
+    <style type="text/css">
+      .jcyc.ticket .sky-blue { background-color: #e6ffff; margin: 15px auto; }
+      .top-menu.links {color: #FFFFFF; background-color: #000000; line-height:30px; text-align:right; }
+      .top-menu a, .top-menu a:active, .top-menu a:hover { color: #FFFFFF; background-color: #000000; }
+      .margin { margin: 0 auto; }
+
+
+      .txt-align-left { text-align: left; }
+      .margin { margin: 0 auto; }
+      .list-tickets-width { width: 750px; margin: 0 auto; }
+      .top-menu { margin: 0 auto 50px; }
+      .top-menu a, .top-menu a:active, .top-menu a:hover { color: #FFFFFF; background-color: #000000 }
+      .username { color: #FFFFFF; }
+      .ticket-form { margin-top: 50px; text-align: left; }
+      .list-new-tickets-p {margin: 15px 0; }
+	  .list-new-tickets-p input#id_id { background-color: #dddddd; cursor: default; }
+      .message { padding: 10px; border: 1px solid #000000; height: 400px; }
+      .ticket-table { width: 750px; }
+      #id_id { border: 1px solid #c1c1c1; }
+      #id_ticket_type { width: 165px; }
+      #id_ticket_status { width:165px; }
+    </style>
+    <p class="jcyc top-menu links">
+      {{ current_user }}
+      <a href="{% url 'tickets:loginsss' %}">Log In</a>
+      <a href="{% url 'tickets:logoutsss' %}">Logout</a>
+      <a href="{% url 'tickets:newsss' %}">New Ticket</a>
+      <a href="{% url 'tickets:listsss' %}">List Tickets</a>
+      <a href="{% url 'tickets:updatesss' ticket.id %}">Update Tickets</a>
+    </p>
+<!--
+
+    .txt-align-left { text-align: left; }
+    .margin { margin: 0 auto; }
+    .list-tickets-width { width: 750px; }
+    .top-menu { margin: 0 auto 50px; }
+    .top-menu a, .top-menu a:active, .top-menu a:hover { color: #FFFFFF; background-color: #000000 }
+    .username { color: #FFFFFF; }
+    .ticket-form { margin-top: 50px; text-align: left; }
+    .list-new-tickets-p {margin: 15px 0; }
+
+-->
+
+
+    <div class="jcyc ticket list-tickets-width txt-align-left">
+        <table class="jcyc ticket-table">
+            <thead>
+                <tr>
+                    <td width="250"><p class="sky-blue">{{ ticket.id }}</p></td>
+                    <td><p class="sky-blue">{{ ticket.subject }}</p></td>
+                    <td><p class="sky-blue">{{ ticket.updated }}</p></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="250"><p class="sky-blue">{{ ticket.ticket_type }}</p></td>
+                    <td><p class="sky-blue">{{ ticket.ticket_status }}</p></td>
+                    <td><p class="sky-blue">{{ ticket.owner }}</p></td>
+                </tr>
+                <tr>
+                    <td width="250" colspan="3"><p class="sky-blue message">{{ ticket.message }}</p></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+	  
+        <!--<p class="sky-blue"><img src="{{ ticket.attachment }}" width="25" height="25" alt="Thumb" />-->
+      <!--<p>By {{ user.username }}</p>-->
+      <!--<p class="author">added by {{ user.username }}</p>-->
+    </div>
+
+    <section class="jcyc ticket-form list-tickets-width txt-align-left margin">
+      {% if user.is_authenticated %}
+      <form action="{% url 'tickets:detailsss' ticket.id %}" method="POST"> <!-- {% url 'tickets:newss' %} -->
+      <!--<form action="{% url 'tickets:updatess' ticket.id %}" data-method="PUT" enctype="multipart/form-data" novalidate="">-->
+        {% csrf_token %}
+          <table class="jcyc forms-panel">
+            <thead>
+                <tr>
+                    <td><p class="list-new-tickets-p">{{ form.id }}</p></td>
+                    <td><p class="list-new-tickets-p">{{ form.subject }}</p></td>
+                    <td><p class="list-new-tickets-p">{{ form.ticket_type }}</p></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><p class="list-new-tickets-p">{{ form.ticket_status }}</p></td>
+                    <td><p class="list-new-tickets-p">{{ form.updated }}</p></td>
+                    <td><p class="list-new-tickets-p">{{ form.owner }}</p></td>
+                </tr>
+                <tr>
+                    
+                    <td><p class="list-new-tickets-p">{{ form.attachment }}</p></td>
+
+                </tr>
+                <tr>
+                    <td colspan="3"><p class="list-new-tickets-p">{{ form.message }}</p></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" align="center"><input type="submit" name="Submit" value="Log a bug" /></td>
+                </tr>
+            </tfoot>
+              
+              
+              
+          </table>
+      </form>
+      {% endif %}
+    </section>
+
+
+{% endblock content %}
+
+
+{% block footer %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".list-new-tickets-p input#id_id").attr("readonly", "readonly");
+});
+
+</script>
+{% endblock footer %}

@@ -1,0 +1,23 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="myicon.png" />
+    <title>{% block title %}{% endblock %}</title>
+    <style type="text/css">
+      * { margin:0; padding:0; }
+      .top-menu { background-color: #000000; color: #FFFFFF; width:100%; line-height: 30px; text-align: right; }
+      .top-menu a, .top-menu a:active, .top-menu a:hover { color: #FFFFFF; }
+    </style>
+  </head>
+  <body>
+    
+    {% block content %}
+    {% endblock %}
+	{% block footer %}
+	{% endblock %}
+  </body>
+</html>

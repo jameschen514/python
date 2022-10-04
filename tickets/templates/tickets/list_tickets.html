@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+
+{% block title %}
+Pybugs - List Bugs
+{% endblock title %}
+
+{% block content %}
+  <!--<h1>{{ user.username }}</h1>-->
+  <style type="">
+    .txt-align-left { text-align: left; }
+    .list-tickets-width { width: 750px; }
+    .top-menu { margin: 0 auto 50px; }
+    .top-menu a, .top-menu a:active, .top-menu a:hover { color: #FFFFFF; background-color: #000000 }
+    .username { color: #FFFFFF; }
+    .ticket-form { margin-top: 50px; text-align: left; }
+    .list-new-tickets-p {margin: 15px 0; }
+    .forms-panel { margin:0 auto; }
+    .list-tickets-table { margin: 0 auto; }
+    .forms-panel-table { margin: 0 auto; width:500px; height:400px; }
+    #id_ticket_type { width: 165px; } 
+    #id_ticket_status { width: 165px; }
+  </style>
+  <p class="jcyc top-menu" style="text-align:right;">
+    <span class="jcyc username">{{ user.username }}</span>
+    <a href="{% url 'tickets:loginsss' %}">Log In</a>
+    <a href="{% url 'tickets:logoutsss' %}">Logout</a>
+    <a href="{% url 'tickets:newsss' %}">New Ticket</a>
+    <a href="{% url 'tickets:listsss' %}">List Tickets</a>
+  </p>
+  
+<div class="jcyc list-tickets-table">
+  <table class="jcyc list-tickets-table" style="text-align:center; border:1px solid #000000;">
+    <thead>
+        <tr style="background-color: #c1c1c1;">
+          <td>Bug #</td>
+          <td>Subject</td>
+          <!--<td>Message</td>-->
+          <td>Last Updated</td>
+          <td>Owner</td>
+          <td>Bug Processor</td>
+		  <!--<td>Action</td>-->
+        </tr>
+    </thead>
+
+    {% for ticket in tickets %}
+      <tr class="ticket">
+        <td><a href="{% url "tickets:updatesss" ticket.id %}">{{ ticket.id }}</a></td>
+        <td style="text-align:left;"><a href="{% url "tickets:updatesss" ticket.id %}">{{ ticket.subject }}</a></td>
+        <!--<td style="text-align:left;"><a href="{% url "tickets:updatesss" ticket.id %}">{{ ticket.message }}</a></td>-->
+        <td><a href="{% url "tickets:updatesss" ticket.id %}">{{ ticket.updated }}</a></td>
+        <td><a href="{% url "tickets:updatesss" ticket.id %}">{{ ticket.owner }}</a></td>
+        <td><a href="{% url "tickets:updatesss" ticket.id %}">{{ user.username }}</a></td>
+      </tr>
+    {% endfor %}
+
+  </table>
+</div>
+  
+<section class="jcyc ticket-form">
+    {% if user.is_authenticated %}
+
+    <form action="{% url 'tickets:listsss' %}" method="POST">
+        {% csrf_token %}
+        <div class="jcyc forms-panel">
+            <table class="jcyc forms-panel-table">
+                <thead>
+                    <tr>
+                        <td><p class="jcyc list-new-tickets-p">{{ form.id }}</p></td>
+                        <td><p class="jcyc list-new-tickets-p">{{ form.subject }}</p></td>
+                        <td><p class="jcyc list-new-tickets-p ticket-type">{{ form.ticket_type }}</p></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p class="jcyc list-new-tickets-p">{{ form.ticket_status }}</p></td>
+                        <td><p class="jcyc list-new-tickets-p">{{ form.updated }}</p></td>
+                        <td><p class="jcyc list-new-tickets-p">{{ form.owner }}</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><p class="jcyc list-new-tickets-p">{{ form.message }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" align="center"><input type="submit" name="Submit" value="Submit new bug" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    {% endif %}
+
+
+
+
+
+    <!--
+    <input type="text" name="id" value="" />
+    <input type="text" name="subject" value="">
+    <input type="text" name="message" value="" />
+    <input type="text" name="updated" value="">
+    <select name="ticket_status">
+      <option value="New">New</option>
+      <option value="Read">Read</option>
+      <option value="Waiting">Waiting</option>
+      <option value="Resolved">Resolved</option>
+    </select>
+    <select name="ticket_type">
+      <option value="Defect">Defect</option>
+      <option value="Feature">Read</option>
+      <option value="Patch">Patch</option>
+    </select>
+    <input type="text" name="owner" value="">
+    -->
+
+
+
+</section>
+  
+
+{% endblock content %}
+
+{% block footer %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".list-new-tickets-p input#id_id").attr("readonly", "readonly");
+	$(".list-new-tickets-p input#id_id").css("cursor", "default");
+});
+
+</script>
+{% endblock %}

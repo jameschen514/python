@@ -1,0 +1,17 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <link rel="icon" type="image/png" href="myicon.png" />
+    <title>{% block title %}{% endblock %}</title>
+
+  </head>
+  <body>
+    Permission denied
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

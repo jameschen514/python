@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+{% block title %}
+Pybugs - Delete Bugs
+{% endblock title %}
+
+{% block content %}
+  <style type="text/css">
+    .list-tickets-width { width: 750px; }
+  </style>
+  {% if user.is_authenticated %}
+  <h1>add bugs {{ user }}</h1>
+  <a href="{% url "tickets:loginsss" %}">Log In</a>
+  <a href="{% url "tickets:logoutsss" %}" %}">Logout</a>
+  <a href="{% url "tickets:newsss" %}">New Ticket</a>
+  <a href="{% url "tickets:listsss" %}">List Ticket</a>
+  {% else %}
+  <h1>add bugs</h1>
+  {% endif %}
+  <div class="jcyc asnyc-data"></div>
+  {% if request.user.is_authenticated %}
+  <section class="jcyc ticket-form">
+    <form method="POST"> 
+        <!-- Security token by Django -->
+        {% csrf_token %} 
+        Are you want to delete this item ? 
+        <input type="submit" value="Yes" /> 
+        <a href="/tickets/api/list/">Cancel </a> 
+    </form> 
+  </section>
+  {% endif %}
+{% endblock content %}
+
+{% block footer %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

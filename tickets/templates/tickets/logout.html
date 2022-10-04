@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pybugs - Logged out
+{% endblock title %}
+
+<div class="jcyc asnyc-data"></div>
+{% block content %}
+  <p>Logged Out</p>
+  <p>User: {{ user }}</p>
+  <p>Password: {{ password }}</p>
+  <a href="{% url "tickets:logoutss" %}">Logout</a>
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock %}

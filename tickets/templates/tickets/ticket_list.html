@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+<html><body>
+<h1>Profiles</h1>
+<ul>
+    {% for ticket in tickets %}
+    <li>{{ ticket.id }}</li>
+    {% endfor %}
+</ul>
+</body></html>
